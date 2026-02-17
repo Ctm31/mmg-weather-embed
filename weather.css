@@ -1,0 +1,100 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f2f4f8;
+}
+
+.weather-card {
+  width: 280px;
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  color: #222;
+}
+
+.weather-loading {
+  text-align: center;
+  color: #666;
+}
+
+/* TODAY SECTION */
+
+.today-label {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 6px;
+}
+
+.today-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.weather-icon {
+  width: 64px;
+  height: 64px;
+}
+
+.today-temp {
+  font-size: 2.4em;
+  font-weight: bold;
+}
+
+.today-desc {
+  margin-top: 6px;
+  font-size: 0.95em;
+  color: #444;
+}
+
+.today-hilo {
+  margin-top: 6px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+/* TONIGHT SECTION */
+
+.tonight {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tonight-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tonight-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.tonight-label {
+  font-weight: bold;
+  font-size: 0.95em;
+}
+
+.tonight-desc {
+  font-size: 0.85em;
+  color: #555;
+}
+
+.tonight-temp {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+/* FOOTER */
+
+.weather-credit {
+  margin-top: 10px;
+  font-size: 0.75em;
+  text-align: center;
+  color: #888;
+}
