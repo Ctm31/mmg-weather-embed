@@ -10,9 +10,6 @@ body {
   background: white;
   border: 4px solid #1BCB96;
   border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  color: #222;
 }
 
 .weather-loading {
