@@ -3,8 +3,6 @@ body {
   background: transparent;
 }
 
-
-
 .weather-card {
 
   width: 100%;
@@ -69,7 +67,7 @@ body {
 }
 
 .desc {
-  font-size: 11px;
+  font-size: 9px;
   color: #555;
 }
 

@@ -13,193 +13,193 @@
 
   <script>
 
-    const apiUrlCurr =
-    'https://api.weather.gov/stations/KSBP/observations/latest';
+const apiUrlCurr =
+'https://api.weather.gov/stations/KSBP/observations/latest';
 
-    const apiUrlFuture =
-    'https://api.weather.gov/gridpoints/LOX/78,115/forecast';
+const apiUrlFuture =
+'https://api.weather.gov/gridpoints/LOX/78,115/forecast';
 
-    const headers = {
-    "User-Agent":
-    "weather-embed-demo (yourname@example.com)"
-    };
-
-
-    function cToF(c) {
-    return Math.round((c * 9) / 5 + 32);
-    }
+const headers = {
+  "User-Agent":
+  "weather-embed-demo (yourname@example.com)"
+};
 
 
-    async function loadWeather(){
-
-    try{
-
-    // fetch forecast + current at same time (faster)
-    const [futureResp, currResp] =
-    await Promise.all([
-
-    fetch(apiUrlFuture,{headers}),
-    fetch(apiUrlCurr,{headers})
-
-    ]);
-
-    const forecastDataFuture =
-    await futureResp.json();
-
-    const forecastDataCurr =
-    await currResp.json();
+function cToF(c) {
+  return Math.round((c * 9) / 5 + 32);
+}
 
 
-    const curr =
-    forecastDataCurr.properties;
+async function loadWeather(){
 
-    const today =
-    forecastDataFuture.properties.periods[0];
+try{
 
-    const tonight =
-    forecastDataFuture.properties.periods[1];
+// fetch forecast + current at same time (faster)
+const [futureResp, currResp] =
+await Promise.all([
 
+fetch(apiUrlFuture,{headers}),
+fetch(apiUrlCurr,{headers})
 
-    // ---- HIGH / LOW ----
+]);
 
-    let high = today.temperature;
-    let low = tonight.temperature;
+const forecastDataFuture =
+await futureResp.json();
 
-    if(!today.isDaytime &&
-    forecastDataFuture.properties.periods[1]){
-
-    high =
-    forecastDataFuture.properties.periods[1].temperature;
-
-    low = today.temperature;
-
-    }
+const forecastDataCurr =
+await currResp.json();
 
 
-    // ---- CURRENT TEMP ----
+const curr =
+forecastDataCurr.properties;
 
-    const currTempF =
-    curr.temperature.value !== null
-    ? cToF(curr.temperature.value)
-    : "--";
+const today =
+forecastDataFuture.properties.periods[0];
 
-    renderWeather(
-    curr,
-    today,
-    tonight,
-    currTempF,
-    high,
-    low
-    );
-
-    }catch(err){
-
-    document.getElementById("weather").innerHTML =
-    "<div class='weather-loading'>Weather unavailable</div>";
-
-    console.error(err);
-
-    }
-
-    }
+const tonight =
+forecastDataFuture.properties.periods[1];
 
 
+// ---- HIGH / LOW ----
 
-    function renderWeather(
-    curr,
-    today,
-    tonight,
-    currTempF,
-    high,
-    low
-    ){
+let high = today.temperature;
+let low = tonight.temperature;
 
-    const html = `
+if(!today.isDaytime &&
+forecastDataFuture.properties.periods[1]){
 
-    <div class="weather-row">
+high =
+forecastDataFuture.properties.periods[1].temperature;
 
-    <!-- TODAY -->
+low = today.temperature;
 
-    <div class="section">
+}
 
-        <img
-        class="icon"
-        src="${curr.icon || today.icon}"
-        alt="${today.shortForecast}"
-        >
 
-        <div>
+// ---- CURRENT TEMP ----
 
-        <div class="label">
-            ${today.name}
-        </div>
+const currTempF =
+curr.temperature.value !== null
+? cToF(curr.temperature.value)
+: "--";
 
-        <div class="temp">
-            ${currTempF}°F
-        </div>
+renderWeather(
+curr,
+today,
+tonight,
+currTempF,
+high,
+low
+);
 
-        <div class="desc">
-            ${today.shortForecast}
-        </div>
+}catch(err){
 
-        <div class="desc">
-            H ${high}°F · L ${low}°F
-        </div>
+document.getElementById("weather").innerHTML =
+"<div class='weather-loading'>Weather unavailable</div>";
 
-        </div>
+console.error(err);
+
+}
+
+}
+
+
+
+function renderWeather(
+curr,
+today,
+tonight,
+currTempF,
+high,
+low
+){
+
+const html = `
+
+<div class="weather-row">
+
+  <!-- TODAY -->
+
+  <div class="section">
+
+    <img
+      class="icon"
+      src="${curr.icon || today.icon}"
+      alt="${today.shortForecast}"
+    >
+
+    <div>
+
+      <div class="label">
+        ${today.name}
+      </div>
+
+      <div class="temp">
+        ${currTempF}°F
+      </div>
+
+      <div class="desc">
+        ${today.shortForecast}
+      </div>
+
+      <div class="desc">
+        H ${high}°F · L ${low}°F
+      </div>
 
     </div>
 
+  </div>
 
-    <div class="divider"></div>
+
+  <div class="divider"></div>
 
 
-    <!-- TONIGHT -->
+  <!-- TONIGHT -->
 
-    <div class="section">
+  <div class="section">
 
-        <img
-        class="icon"
-        src="${tonight.icon}"
-        alt="${tonight.shortForecast}"
-        >
+    <img
+      class="icon"
+      src="${tonight.icon}"
+      alt="${tonight.shortForecast}"
+    >
 
-        <div>
+    <div>
 
-        <div class="label">
-            ${tonight.name}
-        </div>
+      <div class="label">
+        ${tonight.name}
+      </div>
 
-        <div class="temp">
-            ${tonight.temperature}°F
-        </div>
+      <div class="temp">
+        ${tonight.temperature}°F
+      </div>
 
-        <div class="desc">
-            ${tonight.shortForecast}
-        </div>
-
-        </div>
-
-    </div>
+      <div class="desc">
+        ${tonight.shortForecast}
+      </div>
 
     </div>
 
+  </div>
 
-    <div class="weather-credit">
-    Data by weather.gov
-    </div>
-
-    `;
-
-    document.getElementById("weather").innerHTML =
-    html;
-
-    }
+</div>
 
 
-    loadWeather();
+<div class="weather-credit">
+Data by weather.gov
+</div>
 
-    </script>
+`;
+
+document.getElementById("weather").innerHTML =
+html;
+
+}
+
+
+loadWeather();
+
+</script>
 
 </body>
 </html>
